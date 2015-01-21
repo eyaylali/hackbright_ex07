@@ -12,7 +12,7 @@ def unpack(input_file):
 
     for line in opened_file:
         line = line.translate(None, string.punctuation)
-        # line = line.replace(string.punctuation, "")
+        # line = line.replace(string.punctuation, "") # doesn't work?
         line = line.strip().lower()
         words += line.split()
 
@@ -24,17 +24,18 @@ def tally(words):
     Returns a dictionary of word strings:count of frequency'''
 
     tally_count_dict = {}
-    
+
     for word in words:
-        if word in tally_count_dict:
-            tally_count_dict[word] += 1
-        else:
-            tally_count_dict[word] = 1
+        tally_count_dict[word] = tally_count_dict.get(word, 0) + 1
+
+    # for word in words:
+    #     tally_count_dict[word] = tally_count_dict.setdefault(word, 0) + 1
 
     return tally_count_dict
 
-    # for word in words:
-    #     tally_count_dict.setdefault('word':1)
+
+
+
 
 def sort_by_freq(tally_count_dict):
     '''Takes in a dictionary;
