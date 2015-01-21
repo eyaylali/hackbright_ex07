@@ -1,5 +1,6 @@
 from sys import argv
 import string
+from operator import itemgetter
 
 def unpack(input_file): 
 
@@ -16,36 +17,35 @@ def unpack(input_file):
     return words  
 
 def tally(words):
-    tally_count = {}
+    tally_count_dict = {}
     for word in words:
-        if word in tally_count:
-            tally_count[word] += 1
+        if word in tally_count_dict:
+            tally_count_dict[word] += 1
         else:
-            tally_count[word] = 1
+            tally_count_dict[word] = 1
 
+    return tally_count_dict
     # tally_count = {word:(tally_count[word]+1 if word in tally_count else 1) for word in words}
 
-    return tally_count
+    
 
-def sort_by_freq(tally_count):
-    desc = sorted(tally_count.values())
-    for i in desc:
-        if 
-    print desc
+def sort_by_freq(tally_count_dict):
+    desc = sorted(tally_count_dict.items())
+    desc = sorted(desc, key = itemgetter(1), reverse = True)
+    sorted(desc, key = itemgetter(0))
+    return desc
+    # desc = sorted(desc,key=lambda (x,y):(-y,x))
 
-
-# def sort_same_freq(): 
-
-# def print_output(freq_sorted):
-#     for word in freq_sorted:
-#         key, value = word
-#         print key, value
+def print_output(freq_sorted):
+    for word in freq_sorted:
+        key, value = word
+        print key, value
 
 def main(input_file):
     unpacked = unpack(input_file)
-    tally_count = tally(unpacked)
-    freq_sorted = sort_by_freq(tally_count)
-    # print_output(freq_sorted)
+    tally_count_dict = tally(unpacked)
+    freq_sorted = sort_by_freq(tally_count_dict)
+    print_output(freq_sorted)
 
 if __name__ == "__main__":
     script, input_file = argv
